@@ -131,22 +131,6 @@ export const Engine = class {
 		|| (offset[0] < 0 && this.turn === pieceColors.white)
 	}
 
-	getPieceCount(color) {
-		console.log("start blackPiecesCount")
-		let count = 0
-
-		for (let r = 0; r < boardSize; r++) {
-			for (let c = 0; c < boardSize; c++) {
-				if (!this.isOnBoard(r, c) || this.isVacant(r, c)) continue
-				let piece = this.board[r][c]
-				if (piece.color === color) count += 1
-			}
-		}
-
-		console.log("end blackPiecesCount")
-		return count
-	}
-
 	switchSides() {
 		if (this.turn === pieceColors.white) this.turn = pieceColors.black
 		else this.turn = pieceColors.white
