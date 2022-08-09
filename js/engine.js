@@ -93,16 +93,14 @@ export const Engine = class {
 
 	isEnemy(r, c) {
 		return (
-			this.isOnBoard(r, c)
-			&& !this.isVacant(r, c)
+			!this.isVacant(r, c)
 			&& this.board[r][c].color !== this.turn
 		)
 	}
 
 	isFriend(r, c) {
 		return (
-			this.isOnBoard(r, c)
-			&& !this.isVacant(r, c)
+			!this.isVacant(r, c)
 			&& this.board[r][c].color === this.turn
 		)
 	}
