@@ -1,0 +1,52 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgb(224, 224, 224);
+}
+
+#board {
+	display: grid;
+	grid-template-rows: repeat(8, 1fr);
+	grid-template-columns: repeat(8, 1fr);
+	width: 70vw;
+	height: 70vw;
+	max-width: 600px;
+	max-height: 600px;
+	border: 6px solid rgb(63, 63, 63);
+}
+
+.square {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.square.light {
+	background-color: rgb(156, 156, 156);
+}
+
+.square.dark {
+	background-color: rgb(58, 58, 58);
+}
+
+.square.highlight {
+	background-color: rgb(0, 131, 149);
+}
+
+.piece {
+	width: 80%;
+	height: 80%;
+}
+
+.piece.king {
+	/* border: 3px dashed yellow; */
+	box-shadow: 0 0 10px 0px yellow;
+	border-radius: 100%;
+}
+
