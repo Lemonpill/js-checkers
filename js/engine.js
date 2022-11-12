@@ -63,7 +63,7 @@ const Move = class {
 	print() {
 		let line = `${this.startR},${this.startC}->${this.endR},${this.endC}`
 		if (this.isCapture) line += ` X ${this.captureR},${this.captureC}`
-		console.log(line)
+		// console.log(line)
 	}
 }
 
@@ -87,22 +87,17 @@ export const Engine = class {
 	}
 
 	isVacant(r, c) {
-		return this.isOnBoard(r, c)
-		&& !this.board[r][c]
+		return !this.board[r][c]
 	}
 
 	isEnemy(r, c) {
-		return (
-			!this.isVacant(r, c)
-			&& this.board[r][c].color !== this.turn
-		)
+		return !this.isVacant(r, c)
+		&& this.board[r][c].color !== this.turn
 	}
 
 	isFriend(r, c) {
-		return (
-			!this.isVacant(r, c)
-			&& this.board[r][c].color === this.turn
-		)
+		return !this.isVacant(r, c)
+		&& this.board[r][c].color === this.turn
 	}
 
 	isMan(r, c) {
@@ -137,7 +132,7 @@ export const Engine = class {
 	}
 
 	resetBoard() {
-		console.log("start resetBoard")
+		// console.log("start resetBoard")
 
 		this.turn = pieceColors.white
 		this.board = this.createBoardFromMap(standardBoardMap)
@@ -146,11 +141,11 @@ export const Engine = class {
 		this.gameOver = false
 		this.losingSide = null
 
-		console.log("end resetBoard")
+		// console.log("end resetBoard")
 	}
 
 	get boardArray() {
-		console.log("start boardArray")
+		// console.log("start boardArray")
 		let arr = []
 
 		for (let r = 0; r < boardSize; r++) {
@@ -159,7 +154,7 @@ export const Engine = class {
 			}
 		}
 
-		console.log("end boardArray")
+		// console.log("end boardArray")
 		return arr
 	}
 	
@@ -205,7 +200,7 @@ export const Engine = class {
 	}
 
 	createMoveMap(fromR, fromC) {
-		console.log("start createMoveMap")
+		// console.log("start createMoveMap")
 		let map = []
 
 		for (let r = 0; r < boardSize; r++) {
@@ -219,12 +214,12 @@ export const Engine = class {
 			&& m.startC === fromC) map[m.endR][m.endC] = "x"
 		})
 
-		console.log("end createMoveMap")
+		// console.log("end createMoveMap")
 		return map
 	}
 
 	getPossiblePieceMoves(r, c, isMan=true) {
-		console.log("start getPossiblePieceMoves")
+		// console.log("start getPossiblePieceMoves")
 		let moves = []
 
 		for (let d of Object.values(directions)) {
@@ -233,18 +228,19 @@ export const Engine = class {
 			let nextR = r + d[0]
 			let nextC = c + d[1]
 
+			if (!this.isOnBoard(nextR, nextC)) continue
 			if (this.isVacant(nextR, nextC)) {
 				const move = new Move(r, c, nextR, nextC)
 				moves.push(move)
 			}
 		}
 		
-		console.log("end getPossiblePieceMoves")
+		// console.log("end getPossiblePieceMoves")
 		return moves
 	}
 
 	getPossiblePieceJumps(r, c, isMan=true) {
-		console.log("start getPossiblePieceJumps")
+		// console.log("start getPossiblePieceJumps")
 		let moves = []
 
 		for (let d of Object.values(directions)) {
@@ -253,9 +249,12 @@ export const Engine = class {
 			const nextR = r + d[0]
 			const nextC = c + d[1]
 
+			if (!this.isOnBoard(nextR, nextC)) continue
 			if (this.isEnemy(nextR, nextC)) {
 				const landR = nextR + d[0]
 				const landC = nextC + d[1]
+
+				if (!this.isOnBoard(landR, landC)) continue
 				if (this.isVacant(landR, landC)) {
 					const move = new Move(
 						r, c, landR, landC,
@@ -266,12 +265,12 @@ export const Engine = class {
 			}
 		}
 		
-		console.log("end getPossiblePieceJumps")
+		// console.log("end getPossiblePieceJumps")
 		return moves
 	}
 
 	getPossibleMoves() {
-		console.log("start getPossibleMoves")
+		// console.log("start getPossibleMoves")
 		let moves = []
 
 		for (let r = 0; r < boardSize; r++) {
@@ -283,12 +282,12 @@ export const Engine = class {
 			}
 		}
 
-		console.log("end getPossibleMoves")
+		// console.log("end getPossibleMoves")
 		return moves
 	}
 
 	getPossibleJumps() {
-		console.log("start getPossibleJumps")
+		// console.log("start getPossibleJumps")
 		let moves = []
 
 		for (let r = 0; r < boardSize; r++) {
@@ -300,28 +299,28 @@ export const Engine = class {
 			}
 		}
 
-		console.log("end getPossibleJumps")
+		// console.log("end getPossibleJumps")
 		return moves
 	}
 
 	getAvailableMoves() {
-		console.log("start getAvailableMoves")
+		// console.log("start getAvailableMoves")
 
 		let allJumps = this.getPossibleJumps()
 
 		if (allJumps.length) {
-			console.log("end getAvailableMoves")
+			// console.log("end getAvailableMoves")
 			return allJumps
 		}
 
 		let moves = this.getPossibleMoves()
 
-		console.log("end getAvailableMoves")
+		// console.log("end getAvailableMoves")
 		return moves
 	}
 
 	makeMove(move) {
-		console.log("start makeMove")
+		// console.log("start makeMove")
 
 		// Modify piece
 		let movingPiece = this.board[move.startR][move.startC]
@@ -367,6 +366,6 @@ export const Engine = class {
 			this.losingSide = this.turn
 		}
 
-		console.log("end makeMove")
+		// console.log("end makeMove")
 	}
 }

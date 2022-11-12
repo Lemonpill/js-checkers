@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function createSquares(board) {
-		console.log("start createSquares")
+		// console.log("start createSquares")
 		
 		for (let r = 0; r < boardSize; r++) {
 			for (let c = 0; c < boardSize; c++) {
@@ -40,11 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 
-		console.log("end createSquares")
+		// console.log("end createSquares")
 	}
 
 	function createPieces(board, engine) {
-		console.log("start createPieces")
+		// console.log("start createPieces")
 		let squares = board.children
 		let boardArray = engine.boardArray
 		let pieces = []
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		createEventListeners(pieces)
 
-		console.log("end createPieces")
+		// console.log("end createPieces")
 	}
 
 	function handleGameOver(engine) {
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	function handlePieceDragStart(e) {
 		// https://javascript.info/mouse-drag-and-drop
 		// (1) prepare to moving: make absolute and on top by z-index
-		console.log("start handlePieceDragStart")
+		// console.log("start handlePieceDragStart")
 
 		const piece = e.target;
 
@@ -170,11 +170,11 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		};
 
-		console.log("end handlePieceDragStart")
+		// console.log("end handlePieceDragStart")
 	}
 
 	function createEventListeners() {
-		console.log("start createEventListeners")
+		// console.log("start createEventListeners")
 
 		for (let m of engine.possibleMoves) {
 			let index = getIndexByRowCol([m.startR, m.startC])
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			piece.addEventListener("mousedown", handlePieceDragStart)
 		}
 
-		console.log("end createEventListeners")
+		// console.log("end createEventListeners")
 	}
 
 	createSquares(board)
