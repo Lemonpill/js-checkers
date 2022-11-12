@@ -7,7 +7,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: rgb(224, 224, 224);
+	background-image: linear-gradient(to bottom, rgb(9, 9, 9), rgb(33, 33, 33))
 }
 
 #board {
